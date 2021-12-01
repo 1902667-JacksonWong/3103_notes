@@ -107,11 +107,7 @@ docker logs jenkins-blueocean
 http://localhost:8080
 
 https://www.jenkins.io/pipeline/getting-started-pipelines/
-alex
-yanxun
 
-
-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
 
 # get initial admin password
 docker logs jenkins-blueocean
