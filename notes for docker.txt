@@ -1,0 +1,224 @@
+clear      //clear screen
+
+docker image ls       //for listing images
+
+docker image pull ubuntu    //for pulling images from remote repo
+
+docker container run -it ubuntu /bin/bash    //for running the image in the container
+
+ps aux     //list all processes
+
+exit     //exit the container
+
+git clone <git url>  //for cloning to dl app into env
+
+ls -lrt  //list contents of directory in reverse order
+
+cat Dockerfile    //edit the dockerfile
+
+docker image build -t <name of app>    //build the image //-t means tag
+
+docker container run -d --name web --publish 80:8080 <name of app>   //run the docker image
+
+*********for cleaning script************
+ 
+docker stop $(docker container ls -aq)
+
+docker rm $(docker container ls -aq)
+
+docker rmi $(docker images -q)
+
+*********end cleaning script**********
+
+docker image pull <image name>    //pull image from remote repo //redis is an in-memory database
+
+docker image inspect <image name>    //to inspect the image
+
+docker image rm <image name>    //to remove the docker image
+
+ctrl + p + q     //keyboard cmd to get out of the running container
+
+docker container ls     //list all running containers
+ 
+docker container run -it <image name> /bin/sh    //to run container //tag -it means interactive mode
+
+docker container run -it --name <ownself-specified container name> <image name> /bin/sh    //to specify own name of container
+
+docker container exec -it <container name or id> /bin/sh     //to get into a running container
+
+docker container stop <container name or id>     //stop the container
+
+docker container ls -a      //list all containers running and stopped
+
+docker container start <container name or id>    //start the container
+
+docker container inspect <container name or id>    //to inspect the container
+
+////////////docker container needs to be removed before it can destroyed//////////////
+
+docker container run -d --name <ownself-specified container name> <image name> top   //running container in detached mode (dont go into container terminal)
+
+docker container attach <container name>    //attach to running container
+
+docker container rm <container name or id>, <container name or id>
+
+docker container ls -aq    //return only the container id of those running and stopped
+
+docker info    //
+
+docker login    //login to docker hub
+
+docker image tag <image repo> <namespace>/<repo name>:<TAG.. eg. version2 etc>    //tag to docker image
+
+docker image push <image repo> <namespace>/<repo name>:<TAG.. eg. version2 etc>   //pushing with tag to docker repo
+
+hierarchy:
+registry > repo > image > tag
+
+Dockerfile
+**
+FROM  -- base layer
+LABEL  -- metadata
+RUN  -- use a pm to install libs and deps
+COPY  -- copy app and dep files into the /src image
+WORKDIR  -- set working dir
+RUN  -- use a pm to run install libs and deps
+EXPOSE  -- where to expose the web service aka which port
+ENTRYPOINT  -- set the main application to run
+**
+
+docker image build -t <image name>    //build a docker image according to your Dockerfile
+
+docker container run -d --name <container name> --publish <port of host>:<port of container> <image name>  
+
+
+for binding mount to container
+**
+mkdir -p <host folder path>
+cd into folder
+touch <new filename> //creating new file
+**
+
+
+
+//running container with BIND MOUNT
+docker container run -it --name <containername> -v <host folder path>:<container folder path> <imagename> /bin/sh    
+
+
+
+
+**VOLUMES**
+docker volume create <volumename>
+
+docker volume ls    //list all docker volumes
+
+docker volume rm <volumename>    //delete docker volume
+
+
+//run a container and mount the volume
+docker container run -it --name <volumecontainer> \
+--mount type=volume,source=<volumenamethatyouused>,target=<containerfolderpath> \
+<imagename> <shellpath aka /bin/sh>
+
+
+
+//create file in the vol dir
+cd <path>
+touch <new file name>
+
+
+//remove volume container
+docker container rm <volumename>
+
+
+docker volume inspect <volumename>    //inspect the volume
+
+
+
+
+
+**docker-compose.yml this is just an eg.**
+version: "<ver no>"
+services: 
+  db:
+    image:
+    volumes:
+      - <dbname>:<dbpath>
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+  wordpress"
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: 
+      WORDPRESS_DB_PASSWORD:
+      WORDPRESS_DB_NAME:
+volumes:
+    db_data: {}
+networks:
+
+
+
+docker-compose up -d    //create and start containers
+
+docker-compose ps    //list the containers running
+
+docker-compose ls    //list the containers as well
+
+docker-compose images    //list all the images
+
+docker image ls    //list all images as well
+
+docker-compose stop    //stop all containers
+
+docker-compose up -d --scale db=<number of db containers u want incl preexisting>    //scale up the db
+
+docker image build -f <dockerfile> -t <imagename>:<tag>    //f tag is to choose a specific dockerfile over the standard one
+
+docker commit <containername> <imagename>    //create an image for the container
+
+docker image tag <imagename> <namespace>
+
+docker image push <reponame>
+
+docker container run -it --name <containername> <repo> /bin/sh
+
+**for tarball creation**
+
+create a Dockerfile
+
+vim Dockerfile
+
+
+docker save <imagename> > <tarfilename>.tar    //to save the image into a tarball
+
+docker load < <tarfilename>    //to unpack the tarball image
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

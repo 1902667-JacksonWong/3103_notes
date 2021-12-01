@@ -1,0 +1,14 @@
+prerequisite
+1)Make sure u have the 3102.pem (download from tele grp chat)
+2)preferrably placed the 3102.pem in ICT3102Team15/
+    where the dashboard/ ,hacs/ , mokobeacon/ is located
+3)cd to the location of the pem and type the cmd shown below 
+
+4) to ssh into aws ec2 instance:
+ssh -i "3102.pem" ubuntu@xxx.ap-southeast-1.compute.amazonaws.com
+
+5) to upload dashboard/ into aws ec2 instance, first make sure dashboard/ does not contain files that you dont want to upload (i.e. dont have env/)
+6) sceure copy using cmd with the use of .pem:
+
+windows to target vm:
+scp -i "3102.pem" -rp dashboard ubuntu@xxx.ap-southeast-1.compute.amazonaws.com:/home/ubuntu  
