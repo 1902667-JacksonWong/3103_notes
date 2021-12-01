@@ -205,6 +205,27 @@ docker load < <tarfilename>    //to unpack the tarball image
 
 
 
+sudo systemctl enable docker.service
+
+
+sudo systemctl enable containerd.service
+
+
+systemctl status docker
+
+
+
+
+
+sudo docker system prune -a
+
+docker volume prune
+
+
+
+
+
+
 
 
 
